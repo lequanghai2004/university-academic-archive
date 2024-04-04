@@ -1,0 +1,77 @@
+import cv2
+import face_detect
+
+classifier=cv2.CascadeClassifier("code.xml")
+
+
+video_capture=cv2.VideoCapture(0)
+
+                                                
+if not video_capture.isOpened():
+    raise IOError("Cannot open webcam")
+
+while True:
+    ret, frame = video_capture.read()
+    zones=face_detect.detect(frame)
+    
+    for(x,y,w,h) in zones:
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+    cv2.imshow("camera",frame)
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+    
+
+video_capture.release()
+cv2.destroyAllWindows()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# while True:
+#     ret, frame=video_capture.read()
+#     zone=face_detect.detect(frame)
+    
+#     for(x,y,w,h) in zone:
+#         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+#     cv2.imshow("video",frame)
+    
+
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+
+# video_capture.release()
+# cv2.destroyAllWindows()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
