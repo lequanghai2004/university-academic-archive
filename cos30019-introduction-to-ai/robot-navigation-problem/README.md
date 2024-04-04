@@ -13,17 +13,17 @@ in one of the empty cells and required to find a path to visit one of the design
 Assume that the cells of the grid are located by their coordinates with the leftmost top cell being considered to be at the coordinate (0, 0). A wall is a rectangle whose leftmost top corner occupies a cell (x,y) and whose 
 width (w) and height (h) capture its size. For instance, the above environment can be expressed by the following specification: 
 
-[5,11]          // The grid has 5 rows and 11 columns 
+[5,11]         
 
-(0,1)           // initial state of the agent – coordinates of the red cell
+(0,1)          
 
-(7,0) | (10,3)  // goal states for the agent – coordinates of the green cells 
+(7,0) | (10,3)  
 
-(2,0,2,2)       // the square wall has the leftmost top corner occupies cell (2,0) and is 2 cells wide and 2 cell high 
+(2,0,2,2)      
 
-(8,0,1,2)       // ...
+(8,0,1,2)       
 
-(10,0,1,1)      // ...
+(10,0,1,1)      
 
 (2,3,1,2) 
 
@@ -32,3 +32,15 @@ width (w) and height (h) capture its size. For instance, the above environment c
 (9,3,1,1) 
 
 (8,4,2,1) 
+
+- Grid Size: [5,11] (5 rows and 11 columns)
+- Initial State: (0,1) (coordinates of the red cell)
+- Goal States: (7,0) and (10,3) (coordinates of the green cells)
+- Walls:
+  - (2,0,2,2) (square wall with top-left corner at (2,0), 2 cells wide and 2 cells high)
+  - (8,0,1,2)
+  - (10,0,1,1)
+  - (2,3,1,2)
+  - (3,4,3,1)
+  - (9,3,1,1)
+  - (8,4,2,1)
