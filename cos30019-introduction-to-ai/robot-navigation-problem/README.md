@@ -2,6 +2,7 @@
 
 Move to this directory and run the following command, replace the map data file and search algorithm correspondingly
 
+```bash
 .\search.bat .\RobotNav-test.txt BreadthFirstSearch
 .\search.bat .\RobotNav-test.txt AStarSearch
 
