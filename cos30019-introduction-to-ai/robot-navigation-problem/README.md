@@ -5,6 +5,7 @@ Move to this directory and run the following command, replace the map data file 
 ```bash
 .\search.bat .\RobotNav-test.txt BreadthFirstSearch
 .\search.bat .\RobotNav-test.txt AStarSearch
+```
 
 ### Description:
 
@@ -14,6 +15,7 @@ in one of the empty cells and required to find a path to visit one of the design
 Assume that the cells of the grid are located by their coordinates with the leftmost top cell being considered to be at the coordinate (0, 0). A wall is a rectangle whose leftmost top corner occupies a cell (x,y) and whose 
 width (w) and height (h) capture its size. For instance, the above environment can be expressed by the following specification: 
 
+```bash
 [5,11]         
 
 (0,1)          
@@ -32,7 +34,8 @@ width (w) and height (h) capture its size. For instance, the above environment c
 
 (9,3,1,1) 
 
-(8,4,2,1) 
+(8,4,2,1)
+```
 
 - Grid Size: [5,11] (5 rows and 11 columns)
 - Initial State: (0,1) (coordinates of the red cell)
