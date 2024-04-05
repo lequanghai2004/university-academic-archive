@@ -85,6 +85,8 @@ public class CustomUninformedSearchStrategy extends SearchStrategy
                     depth--;
                 }
             }
+
+            System.out.println("Goal State Not Found!");
         }
     }
 }

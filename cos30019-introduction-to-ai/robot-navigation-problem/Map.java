@@ -258,7 +258,7 @@ public class Map
     {
         try
         {
-            Thread.sleep(700);
+            Thread.sleep(10);
         }
         catch (InterruptedException e)
         {

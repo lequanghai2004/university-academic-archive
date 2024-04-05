@@ -63,5 +63,7 @@ public class DepthFirstSearchStrategy extends SearchStrategy
                 }
             }
         }
+
+        System.out.println("No solution found");
     }
 }
