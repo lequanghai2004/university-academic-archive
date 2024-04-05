@@ -1,0 +1,10 @@
+.vs/
+.vscode/
+
+x64/
+x32/
+
+bin/
+
+*.exe
+*.class
