@@ -30,7 +30,7 @@ public class CustomInformedSearchStrategy extends SearchStrategy
         }
 
         // if map.goalStates has size 0 return immediately
-        if (map.goalStates.size() == 0)
+        if (map.goalStates.length == 0)
         {
             System.out.println("No goal state found");
             return;
