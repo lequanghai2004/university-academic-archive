@@ -28,6 +28,14 @@ public class CustomInformedSearchStrategy extends SearchStrategy
                     states.add(null);
             }
         }
+
+        // if map.goalStates has size 0 return immediately
+        if (map.goalStates.size() == 0)
+        {
+            System.out.println("No goal state found");
+            return;
+        }
+
         for (State goal : map.goalStates)
             states.get(goal.column + goal.row * col).eval = 0;
 

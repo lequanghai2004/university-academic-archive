@@ -63,5 +63,8 @@ public class DepthFirstSearchStrategy extends SearchStrategy
                 }
             }
         }
+
+        // no goal state found
+        System.out.println("No goal state found");
     }
 }
