@@ -218,7 +218,7 @@ public class Map
         for (State state : path)
             // mss = state.column + ";" + state.row + ":" + mss;
             mss = state.direction + "; " + mss;
-        if (mss.length() > 5)
+        if (mss.length() > 6)
             mss = mss.substring(5, mss.length() - 2);
         System.out.println(mss + "\n");
     }

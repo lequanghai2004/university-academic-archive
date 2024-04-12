@@ -1,11 +1,7 @@
-import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.*;
 import java.util.function.Consumer;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Program
 {
@@ -25,8 +21,7 @@ public class Program
 
         do
         {
-            for (Path path : currentState.locations
-                .get(currentState.locations.size() - 1).adjacentLocs)
+            for (Path path : currentState.locations.get(currentState.locations.size() - 1).adjacentLocs)
             {
 
                 nextState = new Solution(currentState);
@@ -36,8 +31,7 @@ public class Program
 
             currentState = queue.poll();
 
-        } while (currentState.locations
-            .get(currentState.locations.size() - 1) != dstLoc);
+        } while (Objects.requireNonNull(currentState).locations.get(currentState.locations.size() - 1) != dstLoc);
 
         currentState.print();
     }
@@ -49,8 +43,7 @@ public class Program
         readFile("./src/assets/locations.csv", (data) ->
         {
             String[] values = data.split(",");
-            locations.put(values[0],
-                new Location(values[0], Float.parseFloat(values[1])));
+            locations.put(values[0], new Location(values[0], Float.parseFloat(values[1])));
         });
 
         readFile("./src/assets/paths.csv", (data) ->
@@ -70,24 +63,13 @@ public class Program
 
     private static void readFile(String fileName, Consumer<String> processFunc)
     {
-        try (BufferedReader csvReader = new BufferedReader(
-            new FileReader(fileName)))
+        try (BufferedReader csvReader = new BufferedReader(new FileReader(fileName)))
         {
             csvReader.lines().forEach(processFunc);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-}
-
-class SolutionComparator implements Comparator<Solution>
-{
-
-    @Override
-    public int compare(Solution s1, Solution s2)
-    {
-        return s1.costEstimation < s2.costEstimation ? -1 : 1;
-        // s1 is then priority
     }
 }

@@ -19,10 +19,6 @@ public class Location {
         adjacentLocs.add(new Path(loc, distance));
     }
 
-    public void pisit() {
-        visited = true;
-    }
-
     public void print() {
         String result = name + ": ";
 

@@ -23,7 +23,6 @@ public class BreadthFirstSearchStrategy extends SearchStrategy
             State currentState = exploringStates.remove(0);
             // mark the checking queue as visited
             visitedStates.add(currentState);
-
             map.print(currentState, visitedStates);
             // count++;
 
@@ -43,6 +42,9 @@ public class BreadthFirstSearchStrategy extends SearchStrategy
                 }
             }
         }
+
+        // no solution found
+        System.out.println("No solution found");
     }
 
     // @Override public void execute()
