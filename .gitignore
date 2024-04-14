@@ -2,6 +2,8 @@
 .vscode/
 .idea/
 
+node_modules/
+
 x64/
 x32/
 
