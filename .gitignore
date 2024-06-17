@@ -2,7 +2,10 @@
 .vscode/
 .idea/
 
+.env/
 node_modules/
+
+src/public/styles/
 
 x64/
 x32/

@@ -111,8 +111,6 @@ public:
     // destructor (free sub-trees, must not free empty trees) [14]
     ~TernaryTree()
     {
-        // if (empty()) std::cout << "Delete NIL" << std::endl;
-
         for (int i = 0; i < 3; i++)
         {
             if (!fSubTrees[i]->empty())
@@ -154,15 +152,8 @@ public:
     // return height of ternary tree, may throw domain_error if empty [48]
     size_t height() const
     {
-        if (empty())
-        {
-            throw std::domain_error("Operation not supported");
-        }
-
-        if (leaf())
-        {
-            return 0;  // base case for recursion
-        }
+        if (empty()) throw std::domain_error("Operation not supported");
+        if (leaf()) return 0;  // base case
 
         size_t lHeight0 = fSubTrees[0]->empty() ? 0 : fSubTrees[0]->height();
         size_t lHeight1 = fSubTrees[1]->empty() ? 0 : fSubTrees[1]->height();

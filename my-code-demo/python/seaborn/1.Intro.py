@@ -12,12 +12,12 @@ sns.set_theme()
 tips = sns.load_dataset("tips")
 # Create visualization
 sns.relplot(data=tips,
-    x       = "total_bill", 
-    y       = "tip", 
-    col     = "time",
-    hue     = "smoker", 
-    style   = "smoker", 
-    size    = "size",
+    x="total_bill",
+    y="tip",
+    col="time",
+    hue="smoker",
+    style="smoker",
+    size="size",
 )
 plt.show() #show the graph
 
