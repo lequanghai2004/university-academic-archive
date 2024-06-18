@@ -1,0 +1,17 @@
+﻿[ResourceMetadata]
+"ResourceDimensions"		"scale-200"
+"ResourceDimensions"		"language-en-us"
+
+[Files]
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\filemap.pri"			"resources.pri"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\WindowsFormsApp1\WindowsFormsApp1.exe.config"			"WindowsFormsApp1\WindowsFormsApp1.exe.config"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\WindowsFormsApp1\WindowsFormsApp1.exe"			"WindowsFormsApp1\WindowsFormsApp1.exe"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\WindowsFormsApp1\ClassLibrary2.dll"			"WindowsFormsApp1\ClassLibrary2.dll"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\WindowsFormsApp1\ClassLibrary1.dll"			"WindowsFormsApp1\ClassLibrary1.dll"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\Wide310x150Logo.scale-200.png"			"Images\Wide310x150Logo.scale-200.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\StoreLogo.png"			"Images\StoreLogo.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\Square44x44Logo.targetsize-24_altform-unplated.png"			"Images\Square44x44Logo.targetsize-24_altform-unplated.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\Square44x44Logo.scale-200.png"			"Images\Square44x44Logo.scale-200.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\Square150x150Logo.scale-200.png"			"Images\Square150x150Logo.scale-200.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\SplashScreen.scale-200.png"			"Images\SplashScreen.scale-200.png"
+"D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\obj\Release\PackageLayout\Images\LockScreenLogo.scale-200.png"			"Images\LockScreenLogo.scale-200.png"

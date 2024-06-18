@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=tcp:hailq-server.database.windows.net,1433;Initial Catalog=my-db;Persist Security Info=False;User ID=dbadmin;Password=Hai204fromtheocean;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=45;"
-  }
-}

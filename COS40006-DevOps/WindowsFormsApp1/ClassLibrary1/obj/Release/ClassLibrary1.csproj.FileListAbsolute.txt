@@ -1,0 +1,9 @@
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary1.dll
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary1.pdb
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\obj\Release\ClassLibrary1.csproj.AssemblyReference.cache
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\obj\Release\ClassLibrary1.csproj.CoreCompileInputs.cache
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\obj\Release\ClassLibrary1.dll
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\obj\Release\ClassLibrary1.pdb
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary2.dll
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary2.pdb
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\obj\Release\ClassLib.E736BF3C.Up2Date

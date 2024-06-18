@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="1000">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creating Web Application">
+  <meta name="keywords" content="html tutorial">
+  <meta name="author" content="Le_Quang_Hai">
+  <title>Lab03_LeQuangHai</title>
+</head>
+<body>
+  <a href="https://www.swinburne.edu.au/" target="_blank"><img src="Logo.png" alt="Logo of Swinburne" height="100"></a>
+  <h1>CWA Help Desk Appointment</h1>
+  <p>The Help Desk is located in ATC620. Open 10:30 to 19:00 Monday to Friday</p>
+  <p>Check Blackboard for when CWA tutors will be here</p>
+  
+  <fieldset>
+    <legend>Student details</legend>   
+      <p>
+        <label for="stuID">Student ID</label>
+        <input id="stuID" name="stuID" type="text" required="required" pattern="/d{7,10}">
+      </p>     
+      <p>
+        <label for="stuGivenName">Given Name</label>
+        <input id="stuGivenName" name="stuGivenName" type="text" pattern="" required="required" maxlength="15">
+        <label for="stuFamName">Family Name</label>
+        <input id="stuFamName" name="stuFamName" type="text" required="required" maxlength="15">
+      </p>
+  </fieldset>
+  
+  <fieldset id="subjectStudying">
+    <legend>Your unit</legend>
+    <form>
+      <label><input type="radio" name="subject" required="required">COS10011</label>
+      <label><input type="radio" name="subject" required="required">COS60004</label>
+      <label><input type="radio" name="subject" required="required">COS60007</label>
+    </form>
+    <form>
+      <p><label>Your Tutor 
+        <select required="required">
+          <option value="0" >Please choose your lecturer</option>
+          <option value="1">TuanTran</option>
+          <option value="2">QuangMinhNguyen</option>
+          <option value="3">BrandonHuynh</option>
+        </select>
+      </label></p>
+    </form>
+  </fieldset>
+  
+  <fieldset>
+    <legend>Issue</legend>
+    <label><input type="radio" name="language">HTML</label>
+    <label><input type="radio" name="language">CSS</label>
+    <label><input type="radio" name="language">JavaScript</label>
+    <label><input type="radio" name="language">PHP</label>
+    <label><input type="radio" name="language">MySQL</label>
+
+    <form>
+      <label><p>Description of Issue</p>
+        <textarea name="issue" placeholder="Write description of your problem here" rows="9" cols="70"></textarea></label>
+    </form>
+  </fieldset>
+
+  <fieldset>
+    <legend>Preferred Date/Time</legend>
+    <form>
+      <label>Date<input type="text" pattern="\d{1,2}\/\d{1,2}\/\d{4}" placeholder="dd/mm/yyyy"></label><br>
+      <label>Time<input type="text" placeholder="00:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"></label>
+    </form>
+  </fieldset>
+  
+  <div>
+    <input type="submit" value="book">
+    <input type="Reset" value="Reset form">
+  </div>
+
+
+  
+
+</body>
+</html>

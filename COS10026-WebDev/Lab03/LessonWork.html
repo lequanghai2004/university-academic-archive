@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lesson Week 3</title>
+</head>
+<body>
+  <h1>Hi, this is week 3 lesson</h1>
+<!-- get method shows the form in URLs and is not recommend except search engine
+post makes URL not visile but take more time to process and great to secure inf since only server get the data-->
+
+  <!-- <form id="login" method="post" action="#">
+    <p>
+      <label for="username">Username : </label>
+      <input type="text" id="username" name="username" value="Please enter your username here">
+    </p>
+    <p>
+      <label for="password">Password : </label>
+      <input type="password" id="password" name="password" value=".............">
+    </p>  
+  </form>   -->
+
+  <fieldset><strong>Authencation Information</strong>
+    <form id="login" method="post" action="#">
+        <p><label>Username : <input type="text" id="username" name="username" value="Please enter your username here" size="38" maxlength="50" minlength="15"></label></p>
+        <p><label>Password : <input type="password" id="password" name="password" value="............." size="35" maxlength="10" minlength="8"></label></p>  
+      </form> 
+  </fieldset>
+    
+  <fieldset><strong>Other information</strong>
+    <legend></legend>
+    <form>
+      <p>Please enter your location
+        <label><input type="checkbox" name="location[]" value="VN" checked="checked"> Vietnam</label>
+        <label><input type="checkbox" name="location[]" value="USA"> America</label>
+        <label><input type="checkbox" name="location[]" value="AUS"> Australia</label>
+      </p>
+      <p>
+        <input type="submit" value="Submit Information">
+        <input type="reset" value="clear all inputs">
+      </p>
+    </form>
+    
+    <legend></legend>
+    <form>
+      <label><input type="radio" name="Gender" value="Male">Male</label>
+      <label><input type="radio" name="Gender" value="Male">Female</label>
+    </form>
+    
+    <legend></legend>
+    <form>
+    <label>When will you have a class at school
+      <select name="class" id="class">
+        <option value="0">None</option>
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+      </select>
+    </label>
+    </form>
+  </fieldset>
+
+
+  <!-- <form>
+    <label>Please give us some feedback: <br>
+      <textarea name="feedback" rows="9" column="1000" placeholder="Enter here ...."></textarea>
+    </label>
+  </form> -->
+</body>
+</html>

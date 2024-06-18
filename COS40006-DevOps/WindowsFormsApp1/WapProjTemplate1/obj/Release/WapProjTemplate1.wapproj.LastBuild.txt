@@ -1,0 +1,15 @@
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\SplashScreen.scale-200.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\LockScreenLogo.scale-200.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\Square150x150Logo.scale-200.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\Square44x44Logo.scale-200.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\Square44x44Logo.targetsize-24_altform-unplated.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\StoreLogo.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\Images\Wide310x150Logo.scale-200.png
+D:\COS40003-devops\WindowsFormsApp1\WapProjTemplate1\bin\AnyCPU\Release\resources.pri
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary1.dll
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary2.dll
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary1.pdb
+D:\COS40003-devops\WindowsFormsApp1\ClassLibrary1\bin\Release\ClassLibrary2.pdb
+D:\COS40003-devops\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe
+D:\COS40003-devops\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe.config
+D:\COS40003-devops\WindowsFormsApp1\WindowsFormsApp1\bin\Release\WindowsFormsApp1.pdb

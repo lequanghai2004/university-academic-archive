@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product 
+		Id="*" 
+		Name="SetupProject1" 
+		Language="1033" 
+		Version="1.0.0.0" 
+		Manufacturer="Le Quang Hai" 
+		UpgradeCode="372bc0ad-84d6-47c0-9ac3-e1909b568f86"
+	>
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="SetupProject1" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="My Winform Application Installer Directory" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="ClassLibrary1.dll" Guid="7BA3BBAC-6AFC-4B30-A851-454746C25488">
+				<File
+					Id="ClassLibrary1.dll"
+					Name="ClassLibrary1.dll"
+					Source="$(var.ClassLibrary1.TargetDir)ClassLibrary1.dll"
+				></File>
+			</Component>
+			<Component Id="ClassLibrary2.dll" Guid="768A9A21-0194-4547-B083-385468CE6923">
+				<File
+					Id="ClassLibrary2.dll"
+					Name="ClassLibrary2.dll"
+					Source="$(var.ClassLibrary2.TargetDir)ClassLibrary2.dll"
+				></File>
+			</Component>
+			<Component Id="WindowsFormsApp1.exe" Guid="712C91CC-1696-48BD-A2DE-96D6F837C590">
+				<File 
+					Id="WindowsFormsApp1.exe" 
+					Name="WindowsFormsApp1.exe" 
+					Source="$(var.WindowsFormsApp1.TargetDir)WindowsFormsApp1.exe"
+				></File>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

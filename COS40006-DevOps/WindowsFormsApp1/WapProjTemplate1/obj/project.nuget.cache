@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "tUk94h1b6se1uNSDcBW1yFTmflHfumtQapMc7NksYCypwXq/QPN9TVh9Bf2llVQyfMR4kd2rl7bss06wnjEOJw==",
+  "success": true,
+  "projectFilePath": "D:\\subjects\\COS40006-devops\\WindowsFormsApp1\\WapProjTemplate1\\WapProjTemplate1.wapproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512"
+  ],
+  "logs": []
+}

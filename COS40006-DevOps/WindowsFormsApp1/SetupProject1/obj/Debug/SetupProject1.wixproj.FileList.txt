@@ -1,0 +1,6 @@
+D:\COS40003-devops\WindowsFormsApp1\SetupProject1\bin\Debug\SetupProject1.msi
+D:\COS40003-devops\WindowsFormsApp1\SetupProject1\bin\Debug\SetupProject1.wixpdb
+obj\Debug\Product.wixobj
+obj\Debug\SetupProject1.wixproj.BindContentsFileListnull.txt
+obj\Debug\SetupProject1.wixproj.BindOutputsFileListnull.txt
+obj\Debug\SetupProject1.wixproj.BindBuiltOutputsFileListnull.txt
