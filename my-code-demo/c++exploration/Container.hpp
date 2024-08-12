@@ -13,13 +13,13 @@ public:
                   << ", name=" << name << "\n";
     }
 
-    Container(const Container &other) : value(other.value), name(other.name)
+    Container(const Container& other) : value(other.value), name(other.name)
     {
         std::cout << "Copy container invoked with value=" << value
                   << ", name=" << name << "\n";
     }
 
-    Container(Container &&other) noexcept : value(other.value), name(other.name)
+    Container(Container&& other) noexcept : value(other.value), name(other.name)
     {
         std::cout << "Move container invoked with value=" << value
                   << ", name=" << name << "\n";
@@ -36,43 +36,42 @@ public:
     void print() const
     {
         std::cout << this << " container value: " << value;
-        if (name != "")
-            std::cout << " - name: " << name;
+        if (name != "") std::cout << " - name: " << name;
         std::cout << "\n";
     }
 
-    bool operator==(const Container &other) const
+    bool operator==(const Container& other) const
     {
         std::cout << "Operator== for class Container is invoked\n";
         return value == other.value;
     }
 
-    bool operator!=(const Container &other) const
+    bool operator!=(const Container& other) const
     {
         std::cout << "Operator!= --> ";
         return !(*this == other);
     }
 
-    bool operator<(const Container &other) const
+    bool operator<(const Container& other) const
     {
         std::cout << "Operator< for this=" << value
                   << " and that=" << other.value << "\n";
         return value < other.value;
     }
 
-    bool operator>(const Container &other) const
+    bool operator>(const Container& other) const
     {
         std::cout << "Operator> for class Container is invoked\n";
         return value > other.value;
     }
 
-    bool operator<=(const Container &other) const
+    bool operator<=(const Container& other) const
     {
         std::cout << "Operator<= --> ";
         return !(value > other.value);
     }
 
-    bool operator>=(const Container &other) const
+    bool operator>=(const Container& other) const
     {
         std::cout << "Operator>= --> ";
         return !(value < other.value);
@@ -84,7 +83,7 @@ namespace std
     template <>
     struct hash<Container>
     {
-        size_t operator()(const Container &key) const
+        size_t operator()(const Container& key) const
         {
             std::cout << "std::hash<Container> invoked\n";
             return hash<int>()(key.value);
@@ -92,9 +91,9 @@ namespace std
     };
 
     template <>
-    struct hash<Container *>
+    struct hash<Container*>
     {
-        size_t operator()(const Container *key) const
+        size_t operator()(const Container* key) const
         {
             std::cout << "std::hash<Container*> invoked\n";
             return hash<int>()(key->value);
@@ -102,9 +101,9 @@ namespace std
     };
 
     template <>
-    struct hash<const Container *>
+    struct hash<const Container*>
     {
-        size_t operator()(const Container *key) const
+        size_t operator()(const Container* key) const
         {
             std::cout << "std::hash<const Container*> invoked\n";
             return hash<int>()(key->value);
@@ -114,7 +113,7 @@ namespace std
     template <>
     struct equal_to<Container>
     {
-        bool operator()(const Container &lhs, const Container &rhs) const
+        bool operator()(const Container& lhs, const Container& rhs) const
         {
             std::cout << "std::equal<Container> invoked\n";
             return lhs.value == rhs.value && lhs.name == rhs.name;
@@ -122,9 +121,9 @@ namespace std
     };
 
     template <>
-    struct equal_to<Container *>
+    struct equal_to<Container*>
     {
-        bool operator()(const Container *lhs, const Container *rhs) const
+        bool operator()(const Container* lhs, const Container* rhs) const
         {
             std::cout << "std::equal<Container*> invoked\n";
             return lhs->value == rhs->value && lhs->name == rhs->name;
@@ -134,7 +133,7 @@ namespace std
     template <>
     struct less<Container>
     {
-        bool operator()(const Container &lhs, const Container &rhs) const
+        bool operator()(const Container& lhs, const Container& rhs) const
         {
             std::cout << "std::less<Container> invoked\n";
             return lhs.value < rhs.value;
@@ -142,9 +141,9 @@ namespace std
     };
 
     template <>
-    struct less<Container *>
+    struct less<Container*>
     {
-        bool operator()(const Container *lhs, const Container *rhs) const
+        bool operator()(const Container* lhs, const Container* rhs) const
         {
             std::cout << "std::less<Container*> invoked\n";
             return lhs->value < rhs->value;
@@ -152,9 +151,9 @@ namespace std
     };
 
     template <>
-    struct less<const Container *>
+    struct less<const Container*>
     {
-        bool operator()(const Container *lhs, const Container *rhs) const
+        bool operator()(const Container* lhs, const Container* rhs) const
         {
             std::cout << "std::less<const Container*> invoked\n";
             return lhs->value < rhs->value;

@@ -1,0 +1,96 @@
+AccessModifierOffset: -4
+AlignAfterOpenBracket: DontAlign
+AlignArrayOfStructures: None
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: None
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: None
+AlignEscapedNewlines: Right
+AlignOperands: DontAlign
+AlignTrailingComments: Never
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowBreakBeforeNoexceptSpecifier: OnlyWithParen
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakBeforeMultilineStrings: false
+BinPackArguments: false
+BinPackParameters: false
+BitFieldColonSpacing: Both
+BreakBeforeBraces: Allman
+BreakAdjacentStringLiterals: true
+BreakAfterAttributes: Always
+BreakAfterJavaFieldAnnotations: true
+BreakAfterReturnType: Automatic
+BreakArrays: false
+BreakBeforeBinaryOperators: All
+BreakBeforeConceptDeclarations: Always
+BreakBeforeInlineASMColon: OnlyMultiline
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: AfterColon
+# AlignConsecutiveMembers: None
+# AlignConsecutiveParameters: None
+# AlignConsecutiveStatements: None
+# AlignEscapedNewlines: DontAlign
+# AlignTrailingComments: DontAlign
+# AllowShortIfStatementsOnASingleLine: Inline
+# AllowShortFunctionsOnASingleLine: Inline
+# AllowShortLoopsOnASingleLine: Inline
+# AlwaysBreakAfterDefinitionReturnType: None
+# AlwaysBreakAfterReturnType: None
+# AlwaysBreakBeforeMultilineStrings: false
+# AlwaysBreakTemplateDeclarations: false
+# BinPackArguments: false
+# BinPackParameters: false
+# BreakBeforeBinaryOperators: NonAssignment
+# BreakBeforeBraces: Attach
+# BreakBeforeTernaryOperators: true
+# BreakConstructorInitializers: BeforeComma
+# BreakInheritanceList: BeforeColon
+# BreakStringLiterals: false
+# ColumnLimit: 80
+# CommentPragmas: '^ IWYU pragma:'
+# ConstructorInitializerAllOnOneLineOrOnePerLine: false
+# ConstructorInitializerIndentWidth: 4
+# ContinuationIndentWidth: 4
+# DerivePointerAlignment: false
+# DisableFormat: false
+# ExperimentalAutoDetectBinPacking: false
+# FixNamespaceComments: true
+# IndentCaseLabels: true
+# IndentWidth: 4
+# IndentWrappedFunctionNames: false
+# JavaScriptQuotes: Leave
+# JavaScriptWrapImports: true
+# KeepEmptyLinesAtTheStartOfBlocks: false
+
+# AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+# AllowShortFunctionsOnASingleLine: Empty
+# AlignTrailingComments: Never
+# AlwaysBreakTemplateDeclarations: true
+
+# ConstructorInitializerIndentWidth: 4
+# ContinuationIndentWidth: 4
+
+# BreakBeforeBraces: Allman
+# BinPackParameters: false
+# BinPackArguments: false
+# BreakConstructorInitializers: AfterColon
+# BreakBeforeTernaryOperators: true
+# BreakBeforeBinaryOperators: All
+# BraceWrapping:
+#     SplitEmptyFunction: false
+
+# IndentWidth: 4
+# IndentCaseLabels: true
+# IndentAccessModifiers: false
+
+# PointerAlignment: Left
+# NamespaceIndentation: All

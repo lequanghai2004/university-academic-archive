@@ -1,18 +1,21 @@
 #include <iostream>
+#include <iterator>
 #include <set>
 #include <vector>
-#include <iterator>
 
 // Example Container class
-class Container {
+class Container
+{
 public:
     int value;
     Container(int val) : value(val) {}
 };
 
 // Custom comparison functor
-struct CustomCompare {
-    bool operator()(const Container* lhs, const Container* rhs) const {
+struct CustomCompare
+{
+    bool operator()(const Container* lhs, const Container* rhs) const
+    {
         // Sort containers by their values in ascending order
         return lhs->value < rhs->value;
     }
@@ -20,29 +23,38 @@ struct CustomCompare {
 
 // Custom allocator
 template <typename T>
-struct CustomAllocator {
+struct CustomAllocator
+{
     using value_type = T;
 
     CustomAllocator() = default;
 
     template <typename U>
-    CustomAllocator(const CustomAllocator<U>&) noexcept {}
+    CustomAllocator(const CustomAllocator<U>&) noexcept
+    {
+    }
 
-    T* allocate(std::size_t n) {
-        std::cout << "CustomAllocator::allocate called for " << n << " elements\n";
+    T* allocate(std::size_t n)
+    {
+        std::cout << "CustomAllocator::allocate called for " << n
+                  << " elements\n";
         if (n > std::size_t(-1) / sizeof(T)) throw std::bad_alloc();
         if (auto p = static_cast<T*>(std::malloc(n * sizeof(T)))) return p;
         throw std::bad_alloc();
     }
 
-    void deallocate(T* p, std::size_t n) noexcept {
-        std::cout << "CustomAllocator::deallocate called for " << n << " elements\n";
+    void deallocate(T* p, std::size_t n) noexcept
+    {
+        std::cout << "CustomAllocator::deallocate called for " << n
+                  << " elements\n";
         std::free(p);
     }
 };
 
-int main() {
-    std::set<Container*, std::less<Container*>, CustomAllocator<Container*>> setWithCustomAlloc;
+int main()
+{
+    std::set<Container*, std::less<Container*>, CustomAllocator<Container*>>
+        setWithCustomAlloc;
     std::cout << "-----------\n";
     setWithCustomAlloc.insert(new Container(9));
     std::cout << "-----------\n";
@@ -102,17 +114,20 @@ int main() {
     vecWithCustomAlloc.reserve(4);
 
     // Use std::copy to push_back elements into vecWithCustomAlloc
-    std::copy(container.begin(), container.end(), std::back_inserter(vecWithCustomAlloc));
-
+    std::copy(container.begin(),
+        container.end(),
+        std::back_inserter(vecWithCustomAlloc));
 
     // Iterate and print the elements
-    for (const auto& elem : vecWithCustomAlloc) {
+    for (const auto& elem : vecWithCustomAlloc)
+    {
         std::cout << elem->value << " ";
     }
     std::cout << std::endl;
 
     // Don't forget to delete the dynamically allocated objects
-    for (auto ptr : vecWithCustomAlloc) {
+    for (auto ptr : vecWithCustomAlloc)
+    {
         delete ptr;
     }
 
