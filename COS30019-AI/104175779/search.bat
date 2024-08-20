@@ -1,4 +1,4 @@
-@REM .\search.bat .\RobotNav-test.txt BreadthFirstSearch
+@REM .\search.bat .\tests\RobotNav-test.txt BreadthFirstSearch
 
 @echo off
 javac -Xlint:deprecation -d bin src/*.java

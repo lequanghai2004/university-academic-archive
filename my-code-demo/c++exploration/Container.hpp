@@ -9,34 +9,27 @@ public:
 
     Container(int value, std::string name) : value(value), name(name)
     {
-        std::cout << "Construct container with value=" << value
-                  << ", name=" << name << "\n";
+        std::cout << "Construct container with value=" << value << ", name=" << name << "\n";
     }
 
     Container(const Container& other) : value(other.value), name(other.name)
     {
-        std::cout << "Copy container invoked with value=" << value
-                  << ", name=" << name << "\n";
+        std::cout << "Copy container invoked with value=" << value << ", name=" << name << "\n";
     }
 
     Container(Container&& other) noexcept : value(other.value), name(other.name)
     {
-        std::cout << "Move container invoked with value=" << value
-                  << ", name=" << name << "\n";
+        std::cout << "Move container invoked with value=" << value << ", name=" << name << "\n";
         other.name = "";
         other.value = 0;
     }
 
-    ~Container()
-    {
-        std::cout << "Destruct container of value=" << value
-                  << ", name=" << name << "\n";
-    }
+    ~Container() { std::cout << "Destruct container of value=" << value << ", name=" << name << "\n"; }
 
     void print() const
     {
         std::cout << this << " container value: " << value;
-        if (name != "") std::cout << " - name: " << name;
+        if(name != "") std::cout << " - name: " << name;
         std::cout << "\n";
     }
 
@@ -54,8 +47,7 @@ public:
 
     bool operator<(const Container& other) const
     {
-        std::cout << "Operator< for this=" << value
-                  << " and that=" << other.value << "\n";
+        std::cout << "Operator< for this=" << value << " and that=" << other.value << "\n";
         return value < other.value;
     }
 
@@ -80,7 +72,7 @@ public:
 
 namespace std
 {
-    template <>
+    template<>
     struct hash<Container>
     {
         size_t operator()(const Container& key) const
@@ -90,7 +82,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct hash<Container*>
     {
         size_t operator()(const Container* key) const
@@ -100,7 +92,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct hash<const Container*>
     {
         size_t operator()(const Container* key) const
@@ -110,7 +102,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct equal_to<Container>
     {
         bool operator()(const Container& lhs, const Container& rhs) const
@@ -120,7 +112,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct equal_to<Container*>
     {
         bool operator()(const Container* lhs, const Container* rhs) const
@@ -130,7 +122,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct less<Container>
     {
         bool operator()(const Container& lhs, const Container& rhs) const
@@ -140,7 +132,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct less<Container*>
     {
         bool operator()(const Container* lhs, const Container* rhs) const
@@ -150,7 +142,7 @@ namespace std
         }
     };
 
-    template <>
+    template<>
     struct less<const Container*>
     {
         bool operator()(const Container* lhs, const Container* rhs) const

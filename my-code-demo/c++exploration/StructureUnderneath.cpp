@@ -1,3 +1,5 @@
+#include "Container.hpp"
+
 #include <iostream>
 #include <map>
 #include <set>
@@ -7,8 +9,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Container.hpp"
-
 // #define STACK
 // #define PTR_VEC
 
@@ -16,7 +16,7 @@
 // #define VAL_USET
 // #define VAL_MSET
 // #define VAL_UMSET
-#define VAL_UMMAP
+// #define VAL_UMMAP
 
 // #define PTR_USET
 // #define PTR_UMSET
@@ -24,55 +24,55 @@
 int main()
 {
 #ifdef STACK
-  std::stack<Container> stack;
-  stack.push(Container(2, ""));
-  stack.push(Container(4, ""));
-  stack.push(Container(5, ""));
-  stack.push(Container(2, ""));
-  stack.push(Container(7, ""));
-  while (!stack.empty())
-  {
-    stack.top().print();
-    stack.pop();
-  }
+    std::stack<Container> stack;
+    stack.push(Container(2, ""));
+    stack.push(Container(4, ""));
+    stack.push(Container(5, ""));
+    stack.push(Container(2, ""));
+    stack.push(Container(7, ""));
+    while (!stack.empty())
+    {
+        stack.top().print();
+        stack.pop();
+    }
 #endif // STACK
 
 #ifdef VAL_SET
-  std::set<Container> set;
+    std::set<Container> set;
 
-  // less<Container> is used to balance the tree
-  // when less(a,b) && less(b,a) == false no insertion is made
-  set.insert(Container{6, ""});
-  std::cout << "\n";
-  set.insert(Container{6, ""});
-  std::cout << "\n";
-  set.insert(Container{3, ""});
-  std::cout << "\n";
-  set.insert(Container{4, ""});
-  std::cout << "\n";
-  set.insert(Container{1, ""});
-  std::cout << "\n\n";
+    // less<Container> is used to balance the tree
+    // when less(a,b) && less(b,a) == false no insertion is made
+    set.insert(Container{6, ""});
+    std::cout << "\n";
+    set.insert(Container{6, ""});
+    std::cout << "\n";
+    set.insert(Container{3, ""});
+    std::cout << "\n";
+    set.insert(Container{4, ""});
+    std::cout << "\n";
+    set.insert(Container{1, ""});
+    std::cout << "\n\n";
 
-  for (const Container &con : set)
-  {
-    con.print();
-  }
+    for (const Container& con : set)
+    {
+        con.print();
+    }
 #endif // VAL_SET
 
 #ifdef PTR_VEC
-  std::vector<Container *> vec;
-  vec.push_back(new Container(6, ""));
-  vec.push_back(new Container(3, ""));
-  vec.push_back(new Container(4, ""));
-  vec.push_back(new Container(1, ""));
-  vec.push_back(new Container(5, ""));
+    std::vector<Container*> vec;
+    vec.push_back(new Container(6, ""));
+    vec.push_back(new Container(3, ""));
+    vec.push_back(new Container(4, ""));
+    vec.push_back(new Container(1, ""));
+    vec.push_back(new Container(5, ""));
 
     Container* c = new  Container(1, ")";
     auto found = std::find(vec.begin(), vec.end(), c);
 
     for (const Container* con : vec)
     {
-    con->print();
+        con->print();
     }
 #endif // PTR_VEC
 
@@ -91,7 +91,7 @@ int main()
 
     for (const Container* con : uset)
     {
-    con->print();
+        con->print();
     }
 
     // can find since both are inserted
@@ -109,7 +109,7 @@ int main()
 
     for (const Container& con : uset)
     {
-    con.print();
+        con.print();
     }
 #endif // VAL_USET
 
@@ -126,7 +126,7 @@ int main()
 
     for (const Container& con : mset)
     {
-    con.print();
+        con.print();
     }
 
     // less is used to find as well
@@ -152,7 +152,7 @@ int main()
 
     for (const Container& con : muset)
     {
-    con.print();
+        con.print();
     }
 
     (*muset.find(Container(5, "Hai"))).print();
@@ -170,17 +170,16 @@ int main()
 
     for (const Container* con : muset)
     {
-    con->print();
+        con->print();
     }
 
     if (muset.bucket_count())
     {
-    std::cout << "-----------------\n";
-    size_t bucketIndex = muset.bucket(new Container(5, "Hi"));
+        std::cout << "-----------------\n";
+        size_t bucketIndex = muset.bucket(new Container(5, "Hi"));
 
-    std::unordered_multiset<Container *>::iterator it
-        = muset.begin(bucketIndex);
-    while (it != muset.end(bucketIndex)) (*it++)->print();
+        std::unordered_multiset<Container*>::iterator it = muset.begin(bucketIndex);
+        while (it != muset.end(bucketIndex)) (*it++)->print();
     }
     std::cout << "-----------------\n";
 
@@ -212,9 +211,9 @@ int main()
 
     for (const std::pair<Container, int>& pair : ummap)
     {
-    std::cout << "Key: ";
-    pair.first.print();
-    std::cout << "Value: " << pair.second << "\n";
+        std::cout << "Key: ";
+        pair.first.print();
+        std::cout << "Value: " << pair.second << "\n";
     }
 #endif // VAL_UMMAP
 }
