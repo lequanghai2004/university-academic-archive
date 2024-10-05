@@ -5,8 +5,7 @@
 
 #include "DoublyLinkedList.h"
 
-template <typename T>
-class DoublyLinkedListIterator
+template<typename T> class DoublyLinkedListIterator
 {
 private:
     enum class States
@@ -40,23 +39,20 @@ public:
         }
     }
 
-    const T& operator*() const  // dereference
+    const T& operator*() const // dereference
     {
         return **fCurrent;
     }
 
-    const Node* getCurrentNode()
-    {
-        return fCurrent;
-    }
+    const Node* getCurrentNode() { return fCurrent; }
 
-    Iterator& operator++()  // prefix increment
+    Iterator& operator++() // prefix increment
     {
         switch (fState)
         {
             case States::BEFORE:
 
-                fCurrent = fRoot;  // set to first element
+                fCurrent = fRoot; // set to first element
 
                 if (fCurrent == nullptr)
                 {
@@ -95,7 +91,7 @@ public:
         return *this;
     }
 
-    Iterator operator++(int)  // postfix increment
+    Iterator operator++(int) // postfix increment
     {
         Iterator temp = *this;
 
@@ -104,7 +100,7 @@ public:
         return temp;
     }
 
-    Iterator& operator--()  // prefix decrement
+    Iterator& operator--() // prefix decrement
     {
         switch (fState)
         {
@@ -118,7 +114,7 @@ public:
                 }
                 else
                 {
-                    fCurrent = &fCurrent->getPrevious();  // set to last element
+                    fCurrent = &fCurrent->getPrevious(); // set to last element
                     fState = States::DATA;
                 }
 
@@ -151,7 +147,7 @@ public:
         return *this;
     }
 
-    Iterator operator--(int)  // postfix decrement
+    Iterator operator--(int) // postfix decrement
     {
         Iterator temp = *this;
 
@@ -162,19 +158,12 @@ public:
 
     bool operator==(const Iterator& aOtherIter) const
     {
-        return fRoot == aOtherIter.fRoot && fCurrent == aOtherIter.fCurrent
-            && fState == aOtherIter.fState;
+        return fRoot == aOtherIter.fRoot && fCurrent == aOtherIter.fCurrent && fState == aOtherIter.fState;
     }
 
-    bool operator!=(const Iterator& aOtherIter) const
-    {
-        return !(*this == aOtherIter);
-    }
+    bool operator!=(const Iterator& aOtherIter) const { return !(*this == aOtherIter); }
 
-    Iterator begin() const
-    {
-        return ++(rend());
-    }
+    Iterator begin() const { return ++rend(); }
 
     Iterator end() const
     {
@@ -186,10 +175,7 @@ public:
         return iter;
     }
 
-    Iterator rbegin() const
-    {
-        return --(end());
-    }
+    Iterator rbegin() const { return --end(); }
 
     Iterator rend() const
     {

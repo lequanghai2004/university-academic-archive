@@ -1,0 +1,85 @@
+from transformers import pipeline
+
+# Load a pre-trained model for Question Answering
+qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+
+def answer_question(context, question):
+    """
+    Answer a question given a context.
+    """
+    result = qa_pipeline(question=question, context=context)
+    return result["answer"]
+
+if __name__ == "__main__":
+    # Multiple contexts and questions
+    contexts_and_questions = [
+        {
+            "context": """
+            The ChatGPT model developed by OpenAI is a state-of-the-art language model designed to understand 
+            and generate human-like text responses. It is based on transformer architecture and can handle 
+            tasks such as answering questions, writing essays, and creating conversational AI applications.
+            """,
+            "questions": [
+                "What is ChatGPT designed to do?",
+                "What architecture is ChatGPT based on?"
+            ]
+        },
+        {
+            "context": """
+            The SQuAD dataset, short for Stanford Question Answering Dataset, is a collection of over 100,000 
+            question-answer pairs. It is widely used for training and evaluating question-answering systems 
+            and consists of questions posed by crowdworkers on a set of Wikipedia articles.
+            """,
+            "questions": [
+                "What does SQuAD stand for?",
+                "How many question-answer pairs does the SQuAD dataset contain?",
+                "Where are the questions in SQuAD derived from?"
+            ]
+        },
+        {
+            "context": """
+            Transformers are a type of deep learning model introduced in the paper 'Attention Is All You Need.' 
+            They are known for their ability to handle sequential data effectively using mechanisms like self-attention, 
+            which allows them to focus on relevant parts of input sequences while processing text.
+            """,
+            "questions": [
+                "What are transformers in deep learning?",
+                "What mechanism do transformers use to handle sequential data?",
+                "Which paper introduced transformers?"
+            ]
+        },
+        {
+            "context": """
+            The Python programming language is known for its simplicity and readability. It is a popular choice 
+            for web development, data analysis, machine learning, and scripting, with a vast ecosystem of libraries 
+            like NumPy, pandas, and TensorFlow.
+            """,
+            "questions": [
+                "Why is Python popular?",
+                "Name some libraries in Python's ecosystem.",
+                "What are some common uses of Python?"
+            ]
+        },
+        {
+            "context": """
+            Artificial Intelligence (AI) involves the simulation of human intelligence in machines programmed 
+            to think and learn. AI applications include natural language processing, computer vision, robotics, 
+            and decision-making systems.
+            """,
+            "questions": [
+                "What does AI simulate?",
+                "What are some applications of AI?",
+                "What is AI?"
+            ]
+        }
+    ]
+
+    # Process each context and its questions
+    for idx, entry in enumerate(contexts_and_questions):
+        context = entry["context"]
+        questions = entry["questions"]
+        print(f"Context {idx + 1}:\n{context}\n")
+        for question in questions:
+            answer = answer_question(context, question)
+            print(f"Question: {question}\nAnswer: {answer}\n")
+        print("=" * 80)

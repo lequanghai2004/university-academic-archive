@@ -1,11 +1,11 @@
 
 // COS30008, Problem Set 3, 2022
 
+#include "ListPS3.h"
+
 #include <iostream>
 #include <stdexcept>
 #include <string>
-
-#include "ListPS3.h"
 
 using namespace std;
 
@@ -66,8 +66,7 @@ void testP1()
 
     // iterate from the end
     cout << "Bottom to top " << lList.size() << " elements:" << endl;
-    for (StringList::Iterator iter = lList.rbegin(); iter != iter.rend();
-         iter--)
+    for (StringList::Iterator iter = lList.rbegin(); iter != iter.rend(); iter--)
     {
         cout << *iter << endl;
     }
@@ -103,8 +102,7 @@ void testP2()
 
     // iterate from the top
     cout << "Bottom to top " << lList.size() << " elements:" << endl;
-    for (StringList::Iterator iter = lList.rbegin(); iter != iter.rend();
-         iter--)
+    for (StringList::Iterator iter = lList.rbegin(); iter != iter.rend(); iter--)
     {
         cout << *iter << endl;
     }
