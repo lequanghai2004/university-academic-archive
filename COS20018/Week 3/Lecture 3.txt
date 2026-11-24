@@ -1,0 +1,74 @@
+ 	Input files 
+	--> Input format 
+	--> N splits 
+	--> record readers 
+	--> mappers 
+	--> combiners 
+	--> practitioners
+	--> shuffle and sort
+	--> reducers
+	--> output format
+	--> output files
+
+Key points:
+- InputFormat: parse input into key-value
+- WritableComparable: wrapper of the keys and values
+- Driver: set InputFormat, classes for Mapper and Reducer
+- Mapper: map() method take 1 key-value pair and call Context.write() to output intermediate key-value pairs
+- Reducer: reduce() method take 1 key and iterate the list of values and call Context.write() to output final key-value pairs
+
+
+Driver code: pass InputFormat to Mapper: run on client machine: configure the job and then submit to the cluster:
+- Location stored
+- How to split
+- Parse into key-value pairs by a RecordReader
+
+Types of InputFormat:
+- By default, TextInputFormat creates the LineRecordReader.
+- It treat '\n' as a value. The key is the byte offset of that line within the file.
+- Example: This is me. This is you. --> { 0 : 'This is me' , 11 : 'This is you' }
+
+- FilelnputFormat: Abstract base class used for all file-based inputFormats.
+- KeyValueTextInputFormat: Maps In-terminated lines as "key [separator] value". By default, [separator] is a tab.
+- SequenceFileInputFormat: Binary file of (key,value) pairs with some additional metadata.
+- SequenceFileAsTextInputFormat: Similar, but maps (key.toString(), value.toString())
+
+Keys and values are not primitive but Java objects
+Values are objects which implement Writable interface
+Keys are are objects which implement WritableComparable (Writable and able to determine order when comparing)
+Examples: Text, IntWritable, LongWritable, FloatWritable, ...
+
+
+The Job object allows you to set configuration options for your MapReduce job.
+Any options not explicitly set in your driver code or specified in your configuration will be read from /etc/Hadoop/conf
+You can also use the job object to submit the job, control its execution, and query its state.
+
+Specify the InputFormat other than default TextInputFormat by job.setInputFormatClass(KeyValueTextInputFormat.class).
+
+By default, FileInputFormat.setInputPaths() will read all files from a specified directory and send them to Mappers.
+Exception for items with prefix .period or _underscore.
+Alternatively, FileInputFormat.addInputPaths() can be used multiple times specifying a single file/directory each time.
+
+By default, FileOutputFormat.setOutputPaths() specifies the directory to which the Reducers will write their final output.
+The driver can specify the format of the output data: default as a plain text file.
+Change explicitly by job.setOutputFormatClass(TextOutputFormat.class)
+
+job.waitForCompletion()
+job.submit()
+
+The streaming API allows developers to use any language that support STD IN and STD OUT to write Mappers and Reducers
+Advantages:
+- No need Java
+- Fast development time
+- Reuse of libraries and modules
+Disadvantages:
+- Performance
+- Primary for text
+- Excessive amount of RAM and CPU usage
+- Some must still be written in Java (Partitioners, InputFormat, ...)
+Format:
+- Key [tab] value [newline]
+Command:
+- Hadoop jar filepath.jar -file=mapper -file=reducer -mapper=mapper -reducer=reducer -input=input -output=output
+
+

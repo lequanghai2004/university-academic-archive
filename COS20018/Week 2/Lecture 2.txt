@@ -1,0 +1,153 @@
+MapReduce software framework for easy writing application that processes vast amount of data in parallel, on cluster of commodity hardware in reliable, fault tolerant manner.
+
+MapReduce is originally developed at Google for:
+- Index and Search
+- Summarization (inverted index)
+- Classification (top N records)
+- Recommendation (sort)
+- Analytics (join, selection)
+Apache Hadoop is an open-source implementation
+
+MapReduce are:
+- A program model
+- A large-scale distributed model
+- A parallel programming executable model
+
+MapReduce functions:
+- Map
+- Reduce
+
+MapReduce advantages:
+- Parallel processing
+- Data locality (no data movement, but move process close to data)
+
+MapReduce implementation:
+- Driver code - program entry
+- Mapper code - Map task
+- Reducer code - Reduce task
+
+HBase:
+- Hadoop database
+- NoSQL datastore
+- Sparse data handle: no wasted spaces for empty columns in a row
+- Limited access model: only optimized for lookup of a row by key rather than queries, only single row operation rather than transaction support, only one column can be indexed as the row key
+
+How to choose:
+- Relational database: full transaction needed, real-time query capability
+- Plain HDFS: appending dataset only (no random write), whole dataset read only (no random read)
+- HBase: random read/write required, thousands of operation on TBs of data
+
+Flume:
+- Service to move large amount of data in real-time
+- Import data into HDFS as it is integrated after batch processing
+- Characteristics: distributed, reliable & available, horizontally scalable, extensible
+- Components: data generators, Flume (agent, channel, sink), destination target
+
+Kafka:
+- Open-source platform developed by LinkedIn to handle real-time data
+- Publishes and subscribes a stream of records
+- Stores reads and analyses the streaming data where developers and users contribute the coding updates
+- Components: publisher, Kafka, consumer
+
+
+Compare:
+	
+	Concepts
+		Flume
+			- A tool to collect log data from distributed web servers.
+			- Collected data will land into HDFS/HBase/SPARK for further analysis.
+			- Highly reliable and configurable.
+			- Highly efficient and robust in processing log files, both in batch and real-time processing.
+		Kafka:
+			- Runs as a cluster and handles incoming high volume data streams in real-time.
+			- Composed of three components: the publisher, Kafka cluster/manager, and subscriber.
+			- Stores stream of records into different categories or topics.
+			- Each record in Kafka will be stored as a log entry where the receiver/sender will not be aware of each other.
+
+	Basic of formation:
+		Flume is a service or tool for gathering data into Hadoop/HBase/SPARK.
+		Kafka is an efficient, fault-tolerant and scalable messaging system.	
+
+	Application areas
+		Flume 
+			- Processes transaction logs in application servers, web servers, etc. 
+			- For example, e-commerce, online retail portals, social media, etc.
+		Kafka 
+			- Monitors data from distributed applications.
+			- Makes data available to multiple subscribers based on their interests.
+			- Logs aggregation service.
+
+	Approach:
+		Flume
+			- Needs to gather big data either in streaming or in batch mode from different sources.
+			- Efficient when working with logs.
+		Kafka 
+			- Required to efficiently process real-time data streams without data loss.
+			- Need to ensure data delivery even during machine failures, hence it is a fault-tolerant system.
+		
+
+Sqoop (SQL to Hadoop): 
+- Facilitating and bridging data transfer between RDBMS and HDFS, supporting JDBC, ODBC, ...
+- Custom connectors for: MySQL, PostgreSQL, Netezza, Teradata, Oracle, ...
+- Not open-source, but free
+
+Spark:
+- Fast general engine for large-scale data processing on a cluster
+- Open-source Apache project
+- Provide several benefits over MapReduce
+	- Faster
+	- Better suited for iterative algorithms: can hold intermediate data in RAM
+	- Easier API: support Python, Scala, Java
+	- Support real-time streaming data processing
+
+Compare
+	Spark:
+		- Flexible
+		- Elegant
+		- Fast
+		- Support real-time streaming data processing
+		- Can hold intermediate data in RAM
+	MapReduce
+		- Widely used, huge investment already made
+		- Supports and supported by many complementary tool
+		- Mature, well-tested
+
+
+Hive and Pig:
+- MapReduce is hard to master
+- Allow data analysts from conventional data processing fields to adapt their existing skillset
+- Interpreter runs on client machine
+
+Hive:
+- Language: HiveQL (a SQL like-language)
+- Schema: table definitions stored in a metastore
+- Programmatic access: JDBC, ODBC
+
+Pig:
+- Language: Pig Latin (a dataflow language for transforming large datasets)
+	- purchase = LOAD 'path/to/file' AS (itemId, price, storeId, purchaseId)
+	- bigTicket = FILTER purchase BY price > 1000
+- Schema: optionally define at runtime
+- Programmatic access: PigServer (Java API)
+
+Cloudera Impala:
+- High-performance SQLite engine for vast amount of data
+- Similar to HiveQL but 50 times faster than Hive, Pig, MapReduce
+- Data stored in HDFS and without using MapReduce
+
+Recommendation of usage choice:
+- Near real-time responses to ad-hoc queries, structured data with defined schema --> Impala
+- Support for custom file types, complex data types, external functions --> Hive, Pig
+- Analysts familiar with SQL, integration with reporting tools via ODBC/JDBC --> Hive
+- Developers experienced with writing scripts, unstructured data --> Pig
+
+Oozie:
+- A workflow engine for MapReduce jobs
+- Define dependencies between jobs
+- Ozzie submits the jobs to the server in the correct sequence
+
+Mahout:
+- Machine learning library written in Java
+- Collaborative filtering (recommendation)
+- Clustering (finding naturally occurring 'groupings' in data)
+- Classification (determining whether new data fits a category) 

@@ -1,0 +1,43 @@
+Kafka is an open-source distributed event streaming platform for high-performance data pipelines, streaming analytics, data integration, mission-critical applications
+
+Conventional way of record data storage
+- The world is decomposed by entities
+- Focus on 'things' and 'states' to record what happened
+- The state changes of the entity indicated something happened
+- The relation between entities is used to capture the events
+
+Kafka way of record data storage
+- Focus on events to drive the records
+- Use log to record as an ordered sequence of events that happened
+=> recording is more intuitive, scalable
+
+Topic:
+- ordered collection of events stored in a specified location
+- stored in disk with replica --> data survive hardware failures
+- length of time & topic size are user defined
+- partitioned to be spread over a number of buckets located on different brokers
+
+Kafka is a suitable tool for the microservice structure and is suitable for accelerating the process to real-time operation
+
+Core capabilities: high throughput, fault tolerant, scalable, flexible storage length, low latency, high availability
+
+- Publish
+- Subscribe
+- Store: durably and reliably time-based (retain for 7d) or size-based (retain until 1TB)
+- Process: real-time or retrospectively
+
+How it works
+- Servers
++ Some form the storage layer --> broker
++ Others run Kafka Connect to continuously import and export data as event streams to integrate Kafka with existing systems. 
+- Clients (producer/consumer)
+
+- Event key
+- Event value
+- Event timestamp
+
+Admin API to manage and inspect topics, brokers, objects
+Producer API to publish a stream of events to topics
+Consumer API to subscribe to topics to process the stream of event produced to them
+Stream API to implement stream processing applications and microservices
+Connect API to build and run re-use-able data import/export connectors that consume/produce streams from/to external systems and applications so that they can integrate with Kafka (in practice we can utilize community ready-to-use ones)

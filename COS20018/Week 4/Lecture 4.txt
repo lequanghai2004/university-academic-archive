@@ -1,0 +1,29 @@
+ToolRunner should be implement to prevent the warning: use GenericOptionsParser for passing the arguments, applications should implement Tool for the same. ToolRunner allows specifying configuration options built-in from terminal flags and items for distributed cache.
+
+In Hadoop, configuration values can come from several places (low to high in precedence):
+- Default configuration files (core-default.xml, hdfs-default.xml, etc.)
+- Site-specific configuration files (core-site.xml, hdfs-site.xml, etc.)
+- Command-line options (e.g., -D mapreduce.job.name=MyJob
+- Driver code (explicitly setting properties in your Java/Python code via conf.set())
+
+The setup method run before the map or reduce method is called for the first time: public void setup(Context context) {}
+The cleanup method is called after the mapper or reducer terminates: public void cleanup(Context context) throws IOException, InterruptedException {}
+
+Passing parameters from driver to other components via 
+- Configuration conf = new Configuration()
+- conf.setInt("param", value)
+
+Combiner can be Reducer if:
+- The operation is commutative (tính giao hoán) and associative (tính kết hợp)
+- Input and output data types are identical.
+
+FileSystemAP API:
+- Configuration c = new Configuration()
+- FileSystem fs = FileSystem.get(c)
+- Path p = new Path("/path")
+- FSDataOutputStream o = fs.create(p, false)
+- o.write(getBytes())
+- o.writeInt(getInt())
+- o.close()
+
+

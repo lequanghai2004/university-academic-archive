@@ -1,0 +1,267 @@
+https://www.skills.google/games/6862
+https://www.skills.google/games/6884 ch1-na-multi-183
+
+What is Pig:
+- A platform for data analysis and processing on Hadoop
+- Offers alternative to writing MapReduce code directly
+- Open-source, flexibility, productivity, maintainability
+
+
+Anatomy of Pig: Main components
++ Pig Latin data flow language
++ Grunt interactive shell to type Pig Latin statements
++ Pig interpreter and execution engine
+
+Pig Latin script
+--> (Pig) [Grunt shell or Pig server --> parser --> optimizer --> compiler --> execution engine]
+--> generate MapReduce job 
+--> submit job to Hadoop
+--> ....
+
+How to install: using Cloudera Distribution including Hadoop (CDH)
+
+Features
+- HDFS manipulation
+- Unix shell commands
+- Relational operations
+- Positional references for fields
+- Common mathematical functions
+- Support for custom functions and data formats
+- Complex data structures
+
+Usages
+- Finding relevant records in a massive data set
+- Querying multiple data sets
+- Calculating values from input data
+- Reorganizing an existing data set
+- Joining data from multiple sources to produce a new data set
+
+When to use
+- If business case requires processing multiple data sources
+- If application requires handling time sensitive data
+- If business requires analysis through sampling
+
+Interactive use:
+- Interpret statement on type
+- Delay execution until output is required
+- Useful for ad hoc data inspection
+
+	>pig (enter Grunt shell)
+
+	grunt> fs -mkdir sales/;
+	grunt> fs -put europe.txt sales;
+
+	grunt> allsales = 
+		LOAD 'sales'
+		USING PigStorage(",")
+		USING org.apache.hcatalog.pig.HCatLoader()
+		AS (name:chararry, price:int, identifier:type);
+	grunt> bigsales = FILTER allsales BY price > 100;	// 
+	grunt> DUMP bigsales;					// send output to screen (only work on local mode)
+	grunt> STORE bigsales INTO new_path_in_hdfs;		// send output to HDFS
+
+	grunt> fs -getmerge new_path_in_hdfs/ bigsales.txt;
+
+	grunt> sh date;
+	grunt> fs -ls; 	// ls on hdfs
+	grunt> sh ls;  	// ls on local
+	grunt> quit;
+
+Inline use:
+- Allow execution of single Unix command using -e option
+
+Script use:
+	grunt> run script_file.pig 	// pig shell
+	shell> pig script_file.pig	// unix shell
+
+
+Local mode:
+- Syntax $> pig -x local script_file_on_local.pig
+- Using -x flag runs MapReduce jobs on the local machine instead of the cluster.
+- Local mode uses local file system instead of HDFS.
+
+Client-side log files
+- If a job fails, Pig produces a log file (by default) in the current working directory on the local client machine.
+
+Concepts:
+	Comments:
+		Single line begins with --
+		Multi line is between /* and */
+	Case sensitivity
+		Key words are case insensitive
+		Identifiers and paths are case sentitive
+	Operators
+		Arithmetics: + - * / %
+		Comparison: == != > < >= <=
+		Boolean: AND OR NOT "IS NULL" "IS NOT NULL"
+	Data loading
+		Default loading function is PigStorage
+		PigStorage assumes text format with tab separation
+		Alternative delimiters can be specified : allsales = LOAD 'sales' USING PigStorage(',')
+		Relative path is relative to user home directory : table_name means /user/your_id/table_name
+		If path is directory, Pig recursively load all files
+		File pattern globs are supported : allsales = LOAD 'sales_200[6-9]' loads 2006, 2007, 2008, 2009
+	Column name
+		Use AS to specify
+		If not columns are $0, $1, ... referring to field positions
+	Data types
+		Unspecified type are treated as bytearray
+		Types: int, long, float, double, boolean, datetime, chararray, bytearray (always work but resource heavy)
+		Types can be specified when load : allsales = LOAD 'sales' AS (name:bytearray, identifier:type, ....)
+		Pig do its best to determine data types based on context
+		Avoid using floating point numbers when precision and integration matters
+	HCateLog
+		It is a library that stores the metadata permanently
+		allsales = LOAD 'sales' USING org.apache.hcatalog.pig.HCatLoader
+		No need to specify name, path, type, ... for repetitive loading
+		It simplify sharing of metadata between Pig, Hive, Spark, ...
+	Invalid data handling
+		Pig substitutes NULL for the invalid value
+		NULL is different from empty string
+	Data
+		Single element 				: field		--> attribute
+		Collection of values 		: tuple		--> record
+		Collection of tuples		: bag		--> sample set of a table
+		A bag with assigned name	: relation	--> table
+		Key-value					: map		--> semi-structure NoSQL
+	Output
+		On screen (local mode only): use DUMP relation_name
+		To HDFS: use STORE relation_name INTO file_path USING PigStorage(',')
+	Viewing schema
+		grunt> allsales = LOAD sales ...
+		grunt> DESCRIBE allsales;
+		--> allsales: {name:chararray,price:int}
+	Support for Java regex
+		a_names = FILTER allsales BY name MATCHES 'A.*';
+		spammers = FILTER senders BY email MATCHES '*@example\\.com$';
+	Field selection
+		core_info = FOREACH all_info GENERATE field1, field2;
+		tax = FOREACH allsales GENERATE price * 0.07 AS tax:float;
+	Tuples duplication elimination
+		unique_relation_name = DISTINCT relation_name
+	Sorting
+		sortedsales = ORDER allsale BY country DESC; (default is ASC)
+	Limiting output
+		top10sales = LIMIT allsales 10;
+		top5sales = LIMIT allsales 5;
+	Functions
+		UPPER(abc) = ABC
+		TRIM(  abc) = abc
+		RANDOM() = 0.4354
+		ROUND(37.201) = 37
+		SUBSTRING(abc,0,2) = ab
+
+Data compression are supported via the LOAD and STORE functions.
+PigStorage and TextLoader support gzip and blip for compression both read and write	
+> allsales = LOAD in_sales.gz
+> STORE allsales INTO out_sales.gz
+
+================================================================================
+
+Supported formats for loader - storer
+- PigStorage -- PigStorage
+- TextLoader -- None
+- JsonLoader -- JsonStorage
+- BinStorage -- BinStorage
+- HBaseLoader -- HBaseStorage
+- Custom loader written in Java
+
+================================================================================
+
+How bag is stored in a text file:
+	
+	field1    field2    {(field311, field321), (field312, field322), ...}
+	
+	LOAD data
+	AS tuple(
+    		field1: type1,
+    		field2: type2,field3: bag{tuple(field31: type31, field32: type32, ...)}
+	);
+
+================================================================================
+
+How map is stored in a text file:
+
+	field1    field2    ['key1'#value1, 'key2'#value2]
+	LOAD data
+	AS (
+    		field1: type1,
+    		field2: type2,
+    		field3: map[type3]
+	);
+
+================================================================================
+
+sales = LOAD sales AS (name, price);
+
+	Name	Price
+	---	---
+	Alice	729
+	Bill	3128
+	Alice	8243
+	Carlos	22403
+	Carlos	4028
+
+byname = GROUP sales BY name;
+
+	Group	Sales
+	---	---
+	Alice	{(Alice, 729), (Alice, 8243)}
+	Bill	{(Bill, 3128)}
+	Carlos	{(Carlos, 22403), (Carlos, 4028)}
+
+=> GROUP BY returns a bag containing tuples of 2 fields
+	the grouped field
+	the bag of tuples of the initial tuples
+
+totals = FOREACH byname GENERATE group, SUM(sales.price) AS sales;
+
+	Group	Sales
+	---	---
+	Bob	3929
+	Alice	5228
+	Carlos	72506
+
+groupall = GROUP sales ALL;
+	
+	Group	Sales
+	---	---
+	all	{(Alice, 2874), (Bob, 3929), ...})
+
+totals = FOREACH groupall GENERATE SUM(sales.price);
+
+	sum.sales.price
+	---
+	38531
+
+flat = FOREACH byname GENERATE group, FLATTEN(sales.price) AS sales;
+	
+	Group	Sales
+	---		---
+	Bob		3929
+	Alice	2874
+	Alice	2354
+	Carlos	28241
+	Carlos	44265
+
+Other built-in aggregate functions:
+	- SUM, AVG, MIN, MAX, COUNT, COUNT_STAR 
+	- DIFF, IsEmpty, SIZE, TOKENIZE
+
+================================================================================
+
+employees = LOAD data AS (title: chararray, salary: int)
+title_group = GROUP employees BY title;
+top_salary = FOREACH title_group {
+	sorted = ORDER employees BY salary DESC;
+	highest_paid = LIMIT sorted 3;
+	GENERATE group, highest_paid;
+};
+
+	Title		Group
+	---		---
+	CEO		{(CEO, 227552)}
+	Director	{(Director, 184515), (Director, 182515)}
+	...		...
+
+

@@ -1,0 +1,103 @@
+Big data is data exceeding processing capacity of conventional database systems.
+
+Data sources are mobile sensors, social media, video surveillance, video rendering, smart grids, geophysical exploration, medical imaging, gene sequencing
+
+Big data size:
+- 2009: 0.8 ZB
+- 2010: 1.2 ZB
+- 2020: 35.2 ZB (x44)
+
+Preferred approach in processing big data is parallel computing environment, enabling parallel ingest, loading, analysis.
+
+Characteristics:
+
+- Timeliness		
+- Scale			
+- Diversity
+- Distribution
+- Relevance
+
+1. Volume
+Refers to the amount of data generated and stored. Big data involves massive datasets—from terabytes to petabytes and beyond—coming from sources like sensors, social media, transactions, and logs.
+
+
+2. Velocity
+Describes the speed at which data is generated, processed, and analyzed. In many cases, data flows in real-time or near-real-time, requiring systems that can handle rapid ingestion and response.
+
+
+3. Variety
+Indicates the different types and formats of data. Big data includes structured data (like databases), semi-structured data (like XML or JSON), and unstructured data (like videos, images, emails, and social media posts).
+
+
+4. Veracity
+Relates to the accuracy, quality, and trustworthiness of data. Big data can be noisy or incomplete, so ensuring data integrity and filtering out irrelevant or misleading information is crucial.
+
+
+5. Value
+Represents the usefulness of the data. The ultimate goal of big data is to extract meaningful insights that drive decisions, innovation, and efficiency.
+
+Big data ecosystem:
+- Devices/Sources/Generators
+- Collectors
+- Aggregators
+- Users/Buyers
+
+Traditional data warehouse is not suitable to process big data:
+- Centralized, purposely built --> lack of agility
+- Support business intelligence reporting --> restrict robust analysis
+- Depend on IT and DBA to access --> lack of control
+- Take time to aggregate/disaggregate from multiple sources --> restrict timeliness
+
+Big data requires different approach:
+- Resolve the conflict between the needs of analysts and traditional data warehouse
+- Data assets gathered from multiple sources and technologies for analysis
+- Enables flexible, high performance analysis in non-prod environment
+- Reduces costs and risks associated with data replication into 'shadow' file systems
+- Analyst-owned rather than DBA-owned
+
+Apache Hadoop is a framework for running applications on large cluster built of commodity hardware. 
+The Hadoop framework transparently provides applications both reliability and data motion.
+Hadoops implements a computational paradigm named MapReduce, where the application is divided into many small fragments of work, each of which may be executed or re-executed in any node in the cluster, along with a Distributed File System that stores data on the compute nodes, providing high aggregate bandwidth across the cluster.
+Both MapReduce and Distributed File System are desiged so that node failures are automatically handled by the framework.
+
+Application layer: 		MapReduce
+Resource management layer:	Yet Another Resource Negotiator
+Storage layer: 			Distributed File System
+
+HDFS brings process to the data instead.
+- (Storage)		   (Processing)
+- Name node --- Master --- Resource manager
+- Data node --- Slave  --- Node manager
+
+HDFS:
+- high fault tolerance
+- high throughput access
+- relaxed POSIX requirements
+- designed for batch process
+- write once read many
+
+Assumptions:
+- Hardware failure as a norm rather than exception, large scale of components with non-trivial failure probability, detection of faults and quick automatic recovery.
+- Streaming data access via batch processing for high throughput and latency.
+- Large data sets to Terabytes in size and high aggregate data bandwidth and scale to hundreds of nodes in a cluster.
+- Write once read many approach that simplifies data coherency issues.
+- A computation requested by an application is much more efficient if executed near the data it operated on. This minimize network congestion and increases overall throughput of the system. HDFS provides interfaces for applications to move themselves closer to where the data is located.
+- HDFS is designed to be easily portable from one platform to another.
+
+Modes in HDFS:
+- Standalone
+- Pseudo-distributed 
+- Full distributed
+
+Default size of each block of data is 128 MB.
+Each block is duplicated in 3 copies to be stored in different data nodes.
+1 original copy on 1 rack, other replica on another rack.
+Why not each copy 1 separate rack? to optimize system efficiency, complication between racks takes higher bandwidth than inside the rack.
+
+Commands:
+- hdfs dfs -ls
+- hdfs dfs -put filepath.tar.gz
+- hdfs fsck dirpath
+- hdfs dfs -mkdir dirpath
+- hdfs dfs -rm -r dirpath
+- hdfs dfs –get Shakespeare.tar.gz

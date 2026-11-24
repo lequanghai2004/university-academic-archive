@@ -1,0 +1,100 @@
+--------------------------------------------------------------------------------
+-- 1. Not hardcoding values
+--------------------------------------------------------------------------------
+
+Run the script with either of the following commands:
+    pig -param INPUT=/data/sales.txt -param MINPRICE=100 -param ALICE_NAME='Alice' script.pig
+    pig -p INPUT=/data/sales.txt -p MINPRICE=100 -p ALICE_NAME='Alice' script.pig
+
+For storing the parameters in a file, create a text file params.txt with the following content:
+    INPUT='/data/sales.txt'
+    MINPRICE=100
+    ALICE_NAME='Alice'
+
+Then run the script with the command:
+    pig -param_file params.txt script.pig
+
+The parameters file can also include shell commands, for example:
+    MONTH=`date +%m` 
+    YEAR=`date +%Y`
+
+`
+    all_sales = LOAD $INPUT AS (name:chararray, price:int);
+    big_sales = FILTER allsales BY price > $MINPRICE;
+
+    alice_sales = FILTER all_sales BY name == $ALICE_NAME;
+    STORE alice_sales INTO $ALICE_NAME;
+`
+
+--------------------------------------------------------------------------------
+-- 2. Troubleshooting
+--------------------------------------------------------------------------------
+
+The flags -c stands for 'check', which validates the syntax of the Pig script without executing it.
+    - pig -c script.pig
+    --> script.pig: 4 syntax error(s) found.
+    --> script.pig: syntax ok.
+
+The flag -x stands for 'execution mode', which allows you to specify the mode in which Pig should run the script.
+    - pig -x local script.pig
+    - pig -x mapreduce script.pig
+
+The flag -debug enables debug mode, which provides detailed logging information during the execution of the Pig script.
+    - pig -debug script.pig
+
+The flag --dryrun enables dry run mode, which simulates the execution of the Pig script without actually running it.
+Dry run generates a substituted script named script.pig.substituted with all parameters and macros resolved.
+Dry run generates a log file named pig_<id>.log with detailed information about the dry run process.
+    - pig -p INPUT=demo_params.txt --dryrun script.pig
+
+--------------------------------------------------------------------------------
+-- 3. Customizing Log Messages
+--------------------------------------------------------------------------------
+
+Pig and Hadoop uses Log4J library.
+
+Edit the /etc/pig/conf/log4j.properties:
+- log4j.logger.org.apache.pig=ERROR ()
+- log4j.logger.org.apache.hadoop.config.Configuration=ERROR
+Edit the /etc/pig/config/pig.properties:
+- log4jconf=/etc/pig/conf/log4j.properties
+
+Specify a log config file to be used globally for that specific Pig session.:
+- pig -log4jconf custom_log.properties
+
+When a job fails, a log file is generated
+- To use a different location, use the -l option: pig -l /log
+- To set permanently log file location, edit /etc/pig/conf/pig.properties: log.file=/log
+
+--------------------------------------------------------------------------------
+-- 4. Others
+--------------------------------------------------------------------------------
+
+Kill a failling job.
+Use SAMPLE, ILLUSTRATE, DUMP, DESCRIBE
+Dry run
+
+Do not produce unneeded output (with DUMP)
+Specify schema whenever possible (with AS)
+Filter unwanted data whenever possible (with FILTER)
+Specify smaller data set first (with JOIN)
+Select only needed fields (with FOREACH ... GENERATE ...)
+Reduce workload (with ORDER BY ... LIMIT ... or DISTINCT)
+
+Use set default_parallel value_to_set; to set the default number of reducers
+Use set mapred.compressed.map.output true; to enable compression for the intermediate map output.
+Use set mapred.map.output.compression.codec org.apache.hadoop.io.compress.SnappyCodec; to
+specify the compression codec (Snappy) used for map-output compression.
+
+--------------------------------------------------------------------------------
+-- 5. Pig to MapReduce
+--------------------------------------------------------------------------------
+
+Pig ultimately runs as MapReduce jobs on Hadoop cluster.
+Pig jobs are not translated to Java MapReduce code.
+
+Pig interprets to execution plan.
+Pig execution engine submits MapReduce to Hadoop.
+
+The EXPLAIN keyword details execution plans: logical -> physical -> MapReduce.
+Pig has its own optimization mechanism.

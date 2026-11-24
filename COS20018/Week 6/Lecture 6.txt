@@ -1,0 +1,68 @@
+Default Practitioner is HashPractitioner that uses Java hashCode() method: same key to same reducer.
+
+By default, only a single reducer is used in order to gather all data into the same place and in sorted order.
+
+Hadoop clusters have a limited number of reduce slots (or containers in YARN) available at any given time. If you specify more reducers than the cluster can run concurrently, some reducers will wait in a queue until slots free up. This increases total job completion time because reducers execute in waves instead of all at once.
+- Cluster capacity: 50 reduce slots.
+- Job specifies: 100 reducers.
+- Result: First 50 reducers run, then the remaining 50 wait → longer job duration.
+
+Creating a custom partitioner:
+- Create a class that extends apache.hadoop.mapreduce.Partitioner
+- Override the getPartition method (which returns a number between 0 and numReduceTasks input)
+- Specify in driver code job.setPartitionerClass(MyPartitioner.class)
+- If you need set up variables for use in the partitioner, make MyPartitioner implement Configurable interface (which means the setConf method will be called once when instantiated)
+
+Data types:
+- Writable: define a de/serialization protocal
+- WritableComparable: define a sort order
+
+Implement interface Writable requires 
+- void readFields(DataInput in)
+- void write(DataOutput out)
+WritableComparable is a sub-interface of Writable
+- compareTo()
+- hashCode()
+- equals()
+
+Binary objects: Write an idiom
+- Serialize object to byte array
+- Write byte count
+- Write byte array
+
+Binary objects: Read an idiom
+- Read byte count
+- Create byte array of proper size
+- Read byte array
+- Deserialize object
+
+SequenceFiles:
+- Work naturally with Hadoop data types
+- Include metadata which identifies the data types of the key and value
+- Support: uncompressed, record-compressed, block-compressed
+- Used in MapReduce when output from one job will be used as input for another (SequenceFileInputFormat, SequenceFileOutputFormat)
+
+
+| Type         | Compression Ratio | Random Access                 | Speed    | Typical Use            |
+| ------------ | ----------------- | ----------------------------- | -------- | ---------------------- |
+| Uncompressed | None              | Excellent                     | Fastest  | Debugging, small data  |
+| Record       | Medium            | Good                          | Moderate | SequenceFile, log data |
+| Block        | High              | Poor (needs block decompress) | Slower   | Bulk storage, MR input |
+
+
+Strengths
+- Fast Read/Write: They’re binary files, so they read and write faster than text files.
+- Efficient Storage: Binary format reduces file size and saves disk space.
+- Good for MapReduce: Hadoop can split and process SequenceFiles easily.
+Weaknesses
+- Hard to Read Outside Java: Usually, only Java programs can easily open and process them.
+- Not Flexible Schema: If the data type (key or value) changes, old files might become unreadable.
+- Too Many Small Files = Overhead: Many small SequenceFiles can cause memory and performance issues in Hadoop NameNode.
+- Record Compression = More Mappers: Record-based compression creates smaller files → more input splits → more mappers → higher overhead.
+
+Codec		| Splittable	| Compr. degree	| Speed
+---------------------------------------------------------------
+.gz		| No		| Medium	| Medium
+.bz2		| Yes		| High		| Slow
+.snappy		| No		| Medium	| Fast
+.lz4		| If indexed	| Medium	| Fast

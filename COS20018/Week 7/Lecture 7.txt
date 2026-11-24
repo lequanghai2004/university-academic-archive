@@ -1,0 +1,23 @@
+Term frequency is the number of times a term appears in a document.
+Inverse document frequency is log_a(N/n) where
+- N is total number of documents
+- n is number of documents that contain a term
+- a can be 2 or 20 or any number
+TF-IDF = TF * IDF
+
+Assume you have a term for comparing similarity D = { terms }
+You will be able to create a table for all terms against all documents where
+- TF(i,j) is the count of term i appearing in document j
+- DF(i) is the number of documents containing the i-th term
+- IDF = log_a(N/DF)
+- Weight(TF(i,j),DOC(j))=TF(i,j)*log_a(N/DF(i))
+
+Calculation requires
+- Number of times the term appears in a document, for each document, each term
+- Number of documents that contains the term, for each term
+- Total number of documents
+
+Implement via MapReduce
+- Job 1: Computing term frequency
+- Job 2: Computing number of documents each word occurs in
+- Job 3: Computing TF-IDF

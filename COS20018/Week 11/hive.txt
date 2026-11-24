@@ -1,0 +1,218 @@
+What is Hive
+- High level abstraction on top of MapReduce
+- Uses HiveQL language
+- Generates MapReduce jobs running Hadoop cluster
+- Developed by Facebook, now open-source
+
+`
+    SELECT zipcode, SUM(cost) AS total
+    FROM customers
+    JOIN orders 
+    ON customers.id = orders.id
+    WHERE zipcode LIKE '63%'
+    GROUP BY zipcode
+    ORDER BY total DESC;
+`
+
+Hive turns Hive query into MapReduce jobs and submits those to cluster
+- Hive statements
+- Parse HiveQL
+- Optimize HiveQL
+- Plan execution
+- Generate MapReduce jobs
+- Submit jobs to Hadoop
+- Monitor progress
+
+Benefits
+- More productive to use
+- Bring large-scale data analysis to broader audience
+- No need software developement knowledge
+- Leverage existing SQL knowledge
+- Extensible through Java
+- Supported by BI tools
+
+Loading and storing
+- A table is an HDFS directory
+- Default path is /user/hive/warehouse/<table_name>
+- When table created, metadata is stored in Hive's metastore which is RDBMS like MySQL
+- Hive consults the metastore to determine data structure, format and location
+
+RDBMS
+- Fast response time
+- Support transactions
+- Allow records modification
+- Allow thousands of simultaneous client requests
+Hive
+- Have limitations of MapReduce
+
+--------------------------------------------------------------------------------
+
+Hive shell
+
+    $> hive
+    hive> SELECT id, fname, lname FROM customers;
+    hive> quit
+
+    $> hive -f query.hql
+    $> hive -e 'SELECT * FROM customers'
+    $> hive -S (silent flag, suppress informational messages) ...
+
+    View configuration
+        hive> set -v
+    
+    Specify properties value
+        hive> set hive.cli.print.header=true
+    
+    Default configuration file path is ~/.hiverc
+
+    Execute system command from Hive shell
+        hive> ! date;
+    
+    Execute HDFS command from Hive shell
+        hive> dfs -mkdir reports/sales/2019;
+
+Hive GUI - http://hue_server:8888
+- Create table
+- Run query
+- Browse table
+- Save query for later execution
+
+HiveServer3 - Hive as a Service
+- can be deployed to provide a centralized Hive Service
+- Supports JDBC / ODBC connection, Kerberos authentication
+User --> Beeline CLI    --> HiveServer3 server --> Hadoop cluster (Mapper/Reducer/...)
+JBDC / OBDC Application --> HiveServer3 server --> Hadoop cluster (Mapper/Reducer/...)
+
+$> beeline
+beeline> ! connect jdbc:hive2://localhost:10000 myname mypass org.apache.hive.jdbc.HiveDriver
+...
+
+--------------------------------------------------------------------------------
+
+- Hive tables are stored on HDFS.
+- Subdirectories are not allowed.
+- A table directory may contain multiple files.
+- Hive uses metastore to give context to this data.
+
+hive> SHOW DATABASES;
+hive> USE database_name;
+hive> SELECT * FROM table_name;
+
+hive> SHOW TABLES;
+hive> SHOE TABLES IN database_name;
+hive> DESCRIBE table_name;
+hive> DESCRIBE FORMATTED table_name;
+
+Complex data type:
+- Array: array[index]
+- Map: map[key]
+- Struct: struct.field
+
+Built-in functions:
+- ROUND(23,492,2) = 23.49
+- CEIL(23,492) = 24
+- FLOOR(23,492) = 23
+- ABS(-49) = 49
+- SQRT(64) = 8
+- RAND() = 0.2543546
+
+- UNIX_TIMESTAMP(2020-10-18 18:24:27) = 1372426023
+- FROM_UNIXTIME(1372426023) = 2020-10-18 18:24:27
+- TO_DATE(2020-10-18 18:24:27) = 2020-10-18
+- YEAR(2020-10-18 18:24:27) = 2020
+- DATEDIFF(2020-10-18, 2020-10-20) = 2
+
+- UPPER('Bill') = 'BILL'
+- SUBSTRING('Alice', 0, 2) = 'Al'
+- IF(price>1000, 'true', 'false') input price=1500 ==> 'true'
+- CAST(3.653 AS INT) = 3
+- SIZE(array/map) = number of elements or keys
+
+- COUNT(*)
+- COUNT(DISTINCT field_name)
+- MAX(field_name)
+- MIN(field_name)
+- SUM(field_name)
+- AVG(field_name)
+
+--------------------------------------------------------------------------------
+
+- Data is stored in one or more files.
+- Default data format is plain text.
++ One record per line, separated by \n
++ Columns delimited by ^A
++ Complex type elements seperated by ^B
++ Map keys/values separated by ^C
+- Hive allow override the delimiters during table creation.
+
+- Hive supports binary formats.
+- Pro: better performance.
+- Con: limit other programs ability to read data.
+
+- Record Columnar File is binary format created specifically for Hive.
+- Column-oriented format is efficient for some queries.
+- Otherwise, it is similar to SequenceFile Hadoop-specific binary format.
+
+- Hive databases are simply namespaces.
+hive> CREATE DATABASE IF NOT EXISTS database_name;
+hive> CREATE TABLE table_name (
+        column_name data_type,
+        column_name ARRAY<element_type>,
+        column_name MAP<key_type, value_type>,
+        column_name STRUCTURE<field1: type1, field2: type2, ...>,
+        ...
+    )
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY { '\t' | ',' | '|' | ... }
+    STORED AS { TEXTFILE | SEQUENCEFILE | RCFILE | ... }
+
+Load data from files
+hive> LOAD DATA INPATH dir_name INTO TABLE table_name;
+hive> LOAD DATA INPATH dir_name OVERWITE INTO TABLE table_name;
+hive> LOAD DATA LOCAL INPATH /local/disk/dir_name INTO TABLE table_name;
+$sqoop import
+    --connect jdbc:mysql://localhost/dataset
+    --username username
+    --password password
+    --fields-terminated-by '\t'
+    --table table
+    --hive-import
+
+Removal
+hive> DROP DATABASE (IF EXISTS) database_name (CASCADE);
+hive> DROP TABLE (IF EXISTS) table_name;
+
+Rename
+hive> ALTER TABLE old_name RENAME TO new_name;
+hive> ALTER TABLE table_name CHANGE old_name new_name new_type new_position;
+hive> ALTER TABLE table_name REPLACE COLUMNS (column_to_keep1 type1, column_to_keep2 type2, ...);
+
+Control table data location
+hive> CREATE TABLE table_name (column_name1 type1, ...) LOCATION /path/to/table/location;
+
+Self-managed tables whose data remains when table are dropped
+hive> CREATE EXTERNAL TABLE table_name (column_name1 type1, ...) LOCATION /path/to/table/location;
+
+View
+hive> CREATE VIEW view_name AS SELECT * FROM table_name;
+hive> DESCRIBE FORMATTED view_name;
+hive> DROP VIEW view_name;
+
+Create table based on existing data
+hive> CREATE TABLE table_name AS SELECT * FROM table_name ...;
+
+Write output to file system
+hive> INSERT OVERWITE (LOCAL) DIRECTORY /path/to/output SELECT * FROM table_name ...;
+
+--------------------------------------------------------------------------------
+
+Sentry is a plug-in for enforcing authorization.
+Sentry can be enabled in HiveServer 2/3 and Impala.
+Sentry provides fine-grained, role-based authorization for Hive data and metadata.
+
+What does Sentry control access to: servers, database, table, view
+Who can access Sentry-controlled objects: User in a Sentry role=groups
+How can role members access Sentry-controlled objects:
+- Read operations (SELECT privilege)
+- Write operations (INSERT privilege)
+- Metadata operations (ALL privilege)

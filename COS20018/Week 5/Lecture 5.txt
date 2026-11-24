@@ -1,0 +1,10 @@
+LocalJobRunner is a Hadoop mode that allows you to run MapReduce jobs on a single machine without starting the full Hadoop cluster. Essentially, Hadoop executes the job as a single local process.
+- Configuration conf = new Configuration()
+- conf.set("mapred.job.tracker", "local") 	OR -jt "local OR -D mapred.job.tracker "local"
+- conf.set("fs.default.name", "file:///")	OR -fs "file:///" OR -D fs.default.name "file:///"
+
+Logging from System.out/err.println will not show if running on fully distributed mode. But we can use Hadoop Web UI on:
+- http://<job-tracker>:50030
+- http://<name-node>:50070
+If on pseudo distributed mode:
+- http://localhost:<50030/50070>

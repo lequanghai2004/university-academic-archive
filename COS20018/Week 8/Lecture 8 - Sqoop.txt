@@ -1,0 +1,53 @@
+Why Sqoop:
+- Data stored in RDBMS is needed in a MapReduce job.
+- Is it not recommended to read directly from an RDBMS in your Mapper.
+- Reading directly from RDBMS risk getting DDoS on the RDBMS.
+
+What is Sqoop:
+- Sqoop is an open-source tool originally written in Cloudera.
+- It is designed for efficient transferring bulk data between Apache Hadoop and structured datastores such as relational databases.
+- It was moved to Apache Attic in 2021 due to lack of active Project Management Committee.
+
+What it do:
+- Import table RDBMS -> HDFS.
+- Just one table per operation.
+- Support 'where' clause to support importing only a portion of a table.
+
+Sqoop = SQL to Hadoop
+- Under the hood: It uses MapReduce to actually import the data.
+- Keep in mind: throttle the number of Mappers to avoid DDoS.
+- By default: Sqoop uses 4 Mapper.
+- What to be put in the key value pair is configurable.
+- It uses JDBC interface: a Java API that manage database connection => Sqoop works with any JDBC compatible database.
+
+Sqoop = SQL to Hadoop
+- Supported input data format to be imported to HDFS: Text File or Sequence File.
+- Default: a comma-delimited text file.
+- Support incremental data imports:
++ First time: imports all rows
++ Next time: just retrieves created ones since last import
+- You can generate a class file which can encapsulate a row of the imported data. This is useful for serializing and deserializing data in subsequent MapReduce jobs.
+
+Connectors
+- Cloudera partners with orgs to create custom Sqoop connectors.
+- This allows using database's native protocols rather than JDBC, which is more performant.
++ Netezza by IBM
++ Teradata by Teradata
++ Oracle Database
+- Custom connectors are not open-source, but free.
+
+Syntax: 
+sqoop import/import-all-tables/list-tables
+	[--connect <connection string>] 
+	[--username][--password]
+	[--table <table name>]
+	[--fields-terminated-by <\t or \s or ,>] 
+	[--warehouse-dir <where to import to>]
+	[--incremental <append>]
+	[--check-column <primary key>]
+	[--last-value <only work if key is incremental>]
+sqoop export .... (Sqoop can import HDFS back to RDBMS)
+sqoop help .... (This gets the document about a command)
+
+
+

@@ -1,0 +1,40 @@
+- Flume is a distributed, reliable, scalable, extendable, available service for efficiently moving large amount of data as it is produced.
+- It is ideally suited to gather logs from multiple systems and inserting them into HDFS as they are generated.
+- It is open-sourced, initially developed by Cloudera.
+
+Overview:
+- Write to multiple HDFS formats: text, Sequence File, Json, Avro, ...
+- Optionally process incoming data: transformation, suppression, encryption, enrichment, ...
+- Each agent can be configured with an in-memory or durable channel.
+- Parallelized writes across many collectors - as much write throughput as required.
+
+Agent characteristics
+- Server ==> (agents) [ Source --> Channel --> Sink ] ==> HDFS
+- Source tells the node where to receive data from.
+- Sink tells the node where to send the data to.
+- Channel is a queue between Source and Sink. Durable does not lose data when power lost.
+- Ways to construct channels: memory, JDBC, Kafka, File, spillable memory, pseudo transactional, custom...
+
+Design goals: reliability
+- Memory channel: power lost --> data lost
+- File channel: data stored on disk
+- Data transfer between agent and channels is transactional --> a failed data transfer to a downstream agent rolls back and retries.
+
+Design goal: scalability
+- Can configure multiple agents for the same task.
+- 2 agents doing the job of one collector - if one fails, upstream agent would failover.
+- Having multiple agents gives the ability to increase system performance linearly by adding more resources to the system.
+- Flume scales horizontally. As load increases, more machine can be added to the configuration.
+
+Design goal: extensibility
+- Extensibility is the ability to add new functionality to a system.
+- Flume can be extended by adding Sources and Sinks to existing storage layers of data platforms
++ Source: data from files, logs, standard output of a process
++ Sink: files on local or HDFS
+- Developers can write custom Sources or Sinks.
+
+Usage patterns
+- Ingest log files from real-time systems: web server, firewalls, mail servers --> HDFS.
+- Used by large orgs, ingesting hundreds of millions or events per day.
+- Installed and configured by a system administrator.
+

@@ -1,0 +1,78 @@
+- Job scheduling system designed and deployed to managed Hadoop jobs in a distributed storage environment
+- Combine multiple jobs to be run in sequential order
+- Trigger workflow action using Hadoop execution engine to execute the tasks
+- Execute multiple jobs in parallel
+
+- Leverage existing Hadoop machinery designed for many tasks (exp: load balancing fail over)
+- Integrated with Hadoop ecosystem: Hive, Scala, Pig, ...
+- Open-source Java web application
+
+Motivation:
+- Many problems cannot be solved with a single MapReduce job.
+- A workflow of jobs must be created:
++ Run job A
++ Use output of A as input to B
++ Use output of B as input to C
++ Output of C is the final required output
+- Easy if workflow is linear: which can be created as standard Driver code
+- If workflow is complex: Driver code becomes difficult to maintain
+
+Introduction
+- Is a workflow engine
+- Runs on a server (typically outside a cluster)
+- Runs workflow Hadoop jobs (including Pig, Hive, Sqoop jobs)
+- Submits workflow definition via HTTP
+- Allows one-off and recurring jobs at specific time (scheduling)
+- Works for data present in a directory
+
+Workflow
+- Written in XML
+- Contains a collection of actions (MapReduce, Pig, Hive, ...)
+- Consists of control flow nodes and action nodes (to determine execution path)
++ Control flow nodes define the beginning and the end of workflow
+=> represented by single tag in XML syntax
++ Action nodes triggers the execution of a processing task (MapReduce job, Hive query, Sqoop import, ...)
+=> represented by pair tag in XML syntax
+
+Control nodes
+- decision control node
+- fork control node
+- join control node
+
+Node names:
+- map-reduce
+- fs
+- java
+- pig
+- hive
+- sqoop
+- email
+
+Syntax:
+- The whole workflow is wrapped in workflow-app entity.
+- Start tag tells which workflow node to run first, which is required.
+- Action tag defines an action node.
+
+
+<workflow-app name='wordcount-wf' xmlns='uri:oozie:workflow:0.1'>
+	<start to='wordcount'/>
+	<action name='wordcount'>
+		<map-reduce>
+			<job-tracker>...</job-tracker>
+			<name-node>...</name-node>
+			<configuration>
+				<property>...</property>
+			</configuration>
+		</map-reduce>
+		<ok to='end'/>
+		<error to='kill'/>
+	</action>
+	<kill name='kill'>
+		<message>....</message>
+	</kill>
+	<end name='end'/>
+</workflow-app>
+
+Submitting a workflow
+- oozie job -oozie http://servername/oozie -config <path> -run
+- Java Oozie client API
